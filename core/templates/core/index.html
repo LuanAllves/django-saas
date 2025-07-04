@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXPRESS SAAS | LandPage</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            list-style: none;
+        }
+
+        body{
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .cabecalho{
+            width: 100vw;
+            height: fit-content;
+            padding: 20px;
+            display: flex;
+            justify-content: space-around;
+            border-bottom: 2px solid black;
+            align-items: center;
+        }
+
+        .cabecalho h1 {
+            font-size: 1.5em;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .btn_accounts{
+            color: black;
+            border: 1px solid black;
+            padding: 5px;
+            border-radius: 5px;
+            margin: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="cabecalho">
+        <h1>
+            BEM-VINDO ao EXPRESS SAAS   
+        </h1>
+        <ul>
+            <li>
+                <a href="{% url 'accounts:loginview' %}" class='btn_accounts'>Login</a>
+            </li>
+        </ul>
+
+    </header>
+</body>
+</html>
