@@ -1,0 +1,22 @@
+Esse documento é destinado a anotações sobre o sistema, o que auxiliará em futuras manutenções.
+
+1 - Sobre a criações do apps.
+    1.1 - Um app nada mais é que uma parte do seu sistema que cuida de uma area especifica, exemplo:
+        1.1.1 - Nesse sistemas temos alguns apps, são eles: core e accounts:
+        1.1.2 - Core -> Cuida da primeira pagina de contato com o cliente (LandPage)
+        1.1.3 - Accounts -> Cuida das paginas de Login, Registro e Logout do sistema.
+
+    1.2 - Para criar um app novo, use o comando: py manage.py createapp "nome do app"
+        1.2.1 - Lembre-se de estar com o ambiente virtual ativo, caso contrario o mesmo pode levar a erros.
+        1.2.2 - Outra observação importante é que este comando é para ser usado no sistema Windows, verifique o comando correto para o seu OS
+
+    1.3 - Como criar e ativar o ambiente virtual:
+        1.3.1 - No Windows: 
+            1.3.1.1 - py -m venv meu_ambiente
+            1.3.1.2 - meu_ambiente/scripts/activate
+        
+        1.3.2 - No MacOS e Linux:
+            1.3.2.1 - python3 -m venv meu_ambiente
+            1.3.2.2 - meu_ambiente/bin/activate
+
+        1.3.3 - Observação importante, em "meu_ambiente", pode ser qualquer nome que desejar, mas, por padrão é uma boa pratica usar ".venv" ou somente "venv".

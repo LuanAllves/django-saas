@@ -139,6 +139,7 @@ LOGIN_NOT_REQUIRED = (
     # URLs que não requerem autenticação
     r'^/accounts/login/?$',
     r'^/accounts/logout/?$',
+    r'^/accounts/register/?$',
     r'^/static/.*',
     r'^/',
 )

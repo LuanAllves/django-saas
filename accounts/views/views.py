@@ -1,10 +1,9 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm as MeuForm
-from django.contrib import messages
-from django.contrib.auth.views import LoginView as DjangoLoginView, LogoutView as DjangoLogoutView
+from django.contrib.auth.views import LoginView as DjangoLoginView
 from django.urls import reverse_lazy
-from accounts.forms.forms import LoginForm
+from accounts.forms.forms import LoginForm, RegisterForm
+from django.views.generic.edit import CreateView 
+from django.contrib.auth.models import User
 
 # View que processa o formulário de LOGIN
 class LoginView(DjangoLoginView):
@@ -12,3 +11,8 @@ class LoginView(DjangoLoginView):
     authentication_form = LoginForm
     success_url = reverse_lazy('core:dashboardview')
 
+class RegistroView(CreateView):
+    model = User
+    form_class = RegisterForm
+    template_name = 'accounts/cadastro.html'
+    success_url = reverse_lazy('accounts:loginview')
