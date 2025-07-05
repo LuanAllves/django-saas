@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm as MeuForm
 from django.contrib import messages
-from django.contrib.auth.views import LoginView as DjangoLoginView
+from django.contrib.auth.views import LoginView as DjangoLoginView, LogoutView as DjangoLogoutView
 from django.urls import reverse_lazy
 from accounts.forms.forms import LoginForm
 
@@ -10,4 +10,5 @@ from accounts.forms.forms import LoginForm
 class LoginView(DjangoLoginView):
     template_name = 'accounts/login.html'
     authentication_form = LoginForm
-    redirect_authenticated_user = True
+    success_url = reverse_lazy('core:dashboardview')
+

@@ -126,7 +126,7 @@ STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_DIRS = [
-    "accounts/static",
+    # Adicione aqui os diretórios adicionais de arquivos estáticos
     BASE_DIR / 'static'
 ]
 
@@ -136,10 +136,14 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_NOT_REQUIRED = (
-    r'^/accounts/$',
-    r'^/'
+    # URLs que não requerem autenticação
+    r'^/accounts/login/?$',
+    r'^/accounts/logout/?$',
+    r'^/static/.*',
+    r'^/',
 )
 
-LOGIN_REDIRECT_URL = 'core/dashboard/'
+# URLs de login e logout
+LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 LOGIN_URL = '/accounts/login/'

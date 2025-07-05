@@ -10,19 +10,16 @@ class LoginRequiredMiddleware(MiddlewareMixin):
     def __init__(self, get_response=None, *args, **kwargs):
         self.exceptions = tuple(re.compile(url) for url in LOGIN_NOT_REQUIRED)
         self.get_response = get_response
-
-        return super(LoginRequiredMiddleware, self).__init__(get_response, *args, **kwargs)
+        super().__init__(get_response, *args, **kwargs)
 
     def process_view(self, request, view_func, view_args, view_kwargs):
-        # Caso o user ja esteja logado:
-        if request.user.is_authenticated:
-            for url in self.exceptions:
-                if url.match(request.path):
-                    return redirect('core:homeview')
-            return None
-
+        # Sempre permitir URLs isentas
         for url in self.exceptions:
             if url.match(request.path):
                 return None
 
-        return redirect('accounts:accountsview')
+        # Se a URL não é isenta e o usuário não está logado, redirecionar para login
+        if not request.user.is_authenticated:
+            return redirect('accounts:loginview')
+
+        return None
