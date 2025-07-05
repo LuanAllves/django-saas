@@ -20,3 +20,35 @@ Esse documento é destinado a anotações sobre o sistema, o que auxiliará em f
             1.3.2.2 - meu_ambiente/bin/activate
 
         1.3.3 - Observação importante, em "meu_ambiente", pode ser qualquer nome que desejar, mas, por padrão é uma boa pratica usar ".venv" ou somente "venv".
+
+2 - Sobre o fluxograma do Django.
+    2.1 - fluxograma detalhado:
+        1. - Requisição do Cliente:
+            O usuário digita uma URL no navegador ou clica em um link, fazendo uma requisição HTTP.
+
+        2. ROOT_URLCONF:
+            Django procura a configuração ROOT_URLCONF no arquivo settings.py para identificar o arquivo de padrões de URL a ser usado.
+
+        3. Roteamento (URL Dispatcher):
+            Django compara a URL recebida com os padrões definidos no arquivo de URLs.
+
+        4. View:
+            Se uma correspondência é encontrada, Django chama a função ou classe de view associada ao padrão URL.
+
+        5. Model (Opcional):
+            A view pode interagir com o modelo (base de dados) para buscar ou manipular dados.
+
+        6. Template (Opcional):
+            A view renderiza um template HTML com os dados obtidos, criando a resposta.
+
+        7. Resposta:
+            Django envia a resposta HTML renderizada de volta ao navegador do usuário. 
+    
+    2.2 - Componentes Importantes:
+        URLs: Arquivo que define os padrões de URL e associa cada padrão a uma view.
+        Views: Funções ou classes que processam as requisições e retornam respostas.
+        Modelos: Representam a estrutura de dados e interagem com o banco de dados.
+        Templates: Arquivos HTML que são preenchidos com dados para gerar a resposta final. 
+
+    2.3 - Observação:
+        Django usa uma arquitetura Model-View-Template (MVT), onde cada componente desempenha um papel específico.
