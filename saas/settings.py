@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # App instlados
     'accounts',
     'core',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -148,3 +149,16 @@ LOGIN_NOT_REQUIRED = (
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 LOGIN_URL = '/accounts/login/'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'luanalves9895@gmail.com'
+EMAIL_HOST_PASSWORD = 'apmk tsbx lhaa avon'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+RECAPTCHA_PUBLIC_KEY = '6LcbM3orAAAAAJWL7EbwZuCIRBV7H2WzDRJANozf'
+RECAPTCHA_PRIVATE_KEY = '6LcbM3orAAAAAMyRHvRXuYGODpJVQ7sZzu31Uss1'

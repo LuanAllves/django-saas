@@ -1,16 +1,158 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Registrar-se</title>
-</head>
-<body>
-    <h2>Crie sua conta</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Registrar</button>
-    </form>
-    <p>Já tem conta? <a href="{% url 'accounts:loginview' %}">Entrar</a></p>
-</body>
+<html lang="pt-br">
+  <!-- Cabeçalho -->
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Login Teste</title><!-- começar :: Meta Tags de Acessibilidade -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#007bff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)" />
+    <!-- fim::Meta Tags de Acessibilidade -->
+    <!-- começar :: Meta Tags Primárias -->
+    <meta name="title" content="AdminLTE 4 | Login Page" />
+    <meta name="author" content="ColorlibHQ" />
+    <meta name="description" content="AdminLTE is a Free Bootstrap 5 Admin Dashboard, 30 example pages using Vanilla JS. Fully accessible with WCAG 2.1 AA compliance." />
+    <meta name="keywords" content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, colorlibhq, colorlibhq dashboard, colorlibhq admin dashboard, accessible admin panel, WCAG compliant" />
+    <!-- fim::Metatags primárias -->
+    <!-- começar ::Recursos de acessibilidade -->
+    <!-- Os links de navegação serão adicionados dinamicamente pelo accessibility.js -->
+    <meta name="supported-color-schemes" content="light dark" />
+    <link rel="preload" href="{% static 'global/css/adminlte.css' %}" as="style" />
+    <!-- fim::Recursos de Acessibilidade -->
+    <!-- começar :: Fontes -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css" integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q=" crossorigin="anonymous" media="print" onload="this.media='all'" />
+    <!-- fim::Fontes -->
+    <!-- begin :: Plugin de terceiros (barras de rolagem de sobreposição) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/styles/overlayscrollbars.min.css" crossorigin="anonymous" />
+    <!-- fim::Plugin de terceiros (barras de rolagem de sobreposição) -->
+    <!-- começar :: Plugin de terceiros (ícones do Bootstrap) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" crossorigin="anonymous" />
+    <!-- fim::Plugin de terceiros (ícones do Bootstrap) -->
+    <!-- begin :: Plugin necessário (AdminLTE) -->
+    <link rel="stylesheet" href="{% static 'global/css/adminlte.css' %}" />
+    <!-- fim::Plugin necessário (AdminLTE) -->
+    <link rel="stylesheet" href="{% static 'accounts/style/style.css' %}" />
+    <!--Plugin recaptcha-->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- fim::Plugin recaptcha -->
+  </head> <!-- fim::Cabeçalho -->
+
+  <!-- começar::Corpo -->
+  <body class="login-page bg-body-secondary ">
+    <div class="login-box">
+      <!-- <div class="login-logo"> <a href="#"><b>Login</b>Teste</a> </div> /.login-logo -->
+      <div class="login-logo">
+        <img src="{% static 'accounts/img/logo-login.png' %}" alt="image" height="150" width="170" />
+      </div> <!-- /.login-logo -->
+      <div class="card">
+        <div class="card-body login-card-body">
+          <p class="login-box-msg">Preencha o formulário de solicitação</p>
+          {% if messages %}
+            {% for message in messages%}
+              <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+          {% if form.errors %}
+            <div class="alert alert-danger" role="alert">{{ form.errors }}</div>
+          {% endif %}
+          <form method="post">
+            {% csrf_token %}
+            <div class="form-block">
+              <div class="formulario">
+                  {{ form.nome.label_tag }}
+                  {{ form.nome }}
+              </div>
+              <div class="formulario">
+                  {{ form.email.label_tag }}
+                  {{ form.email }}
+              </div>
+            </div>
+            <div class="form-block">
+              <div class="formulario">
+                  {{ form.telefone.label_tag }}
+                  {{ form.telefone }}
+              </div>
+              <div class="formulario">
+                  {{ form.empresa.label_tag }}
+                  {{ form.empresa }}
+              </div>
+            </div>
+            <div class="formulario">
+                {{ form.mensagem.label_tag }}
+                {{ form.mensagem }}
+            </div>
+            <!-- fim::Formulário de pré registro -->
+            <p>
+              <label for="{{ form.captcha.id_for_label }}">Verificação de Segurança:</label><br />
+              <!-- Captcha do Google -->
+              {{ form.captcha }}
+              {% if form.captcha.errors %}{{ form.captcha.errors }}{% endif %}
+            </p>
+            <!-- começar::Linha -->
+            <div class="row">
+              <div class="col-8"></div> <!-- /.coluna -->
+              <div class="col-12">
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-primary">Enviar Solicitação</button>
+                </div>
+              </div> <!-- /.coluna -->
+            </div> <!-- fim::Linha -->
+          </form>
+          <div class="recuperacao-cadastro text-center mb-3 d-grid gap-2"></div> <!-- /.Recuperação e cadastro -->
+          <p class="mb-0">
+            <a href="{% url 'accounts:loginview' %}" class="text-center">Já tem Registro? Clique aqui!</a>
+          </p>
+        </div> <!-- /.corpo do cartão de login -->
+      </div>
+      <div class="clearfix mg5 text-center text-black">
+        <small>Versão 1.0.0</small>
+      </div>
+    </div> <!-- /.caixa de login --> <!-- begin :: Plugin de terceiros (barras de rolagem de sobreposição) -->
+    <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/browser/overlayscrollbars.browser.es6.min.js" crossorigin="anonymous"></script>
+    <!-- fim::Plugin de terceiros (barras de rolagem de sobreposição) -->
+    <!-- begin :: Plugin necessário (popper js para Bootstrap 5) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <!-- fim::Plugin necessário (popperjs para Bootstrap 5) -->
+    <!-- begin :: Plugin necessário (Bootstrap 5) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <!-- fim::Plugin necessário (Bootstrap 5) -->
+    <!-- begin :: Plugin necessário (AdminLTE) -->
+    <script src="{% static 'global/js/adminlte.js' %}"></script>
+    <!-- fim::Plugin necessário (AdminLTE) -->
+    <!-- jQuery (requerido) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/jquery.inputmask.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#id_telefone').inputmask('(99) 99999-9999');
+        });
+    </script>
+
+    <!-- início :: Configurar barras de rolagem de sobreposição -->
+    <script>
+      const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper'
+      const Default = {
+        scrollbarTheme: 'os-theme-light',
+        scrollbarAutoHide: 'leave',
+        scrollbarClickScroll: true
+      }
+      document.addEventListener('DOMContentLoaded', function () {
+        const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER)
+        if (sidebarWrapper && OverlayScrollbarsGlobal?.OverlayScrollbars !== undefined) {
+          OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
+            scrollbars: {
+              theme: Default.scrollbarTheme,
+              autoHide: Default.scrollbarAutoHide,
+              clickScroll: Default.scrollbarClickScroll
+            }
+          })
+        }
+      })
+    </script> <!-- end::OverlayScrollbars Configure -->
+    <!-- Image path runtime fix -->
+  </body>
+  <!-- end::Body -->
 </html>

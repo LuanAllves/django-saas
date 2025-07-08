@@ -205,6 +205,7 @@ body {
   background-color: var(--bs-body-bg);
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  max-height: 100vh;
 }
 
 hr {
@@ -15053,6 +15054,8 @@ html.maximized-card {
 
 .login-card-body,
 .register-card-body {
+  max-height: 100vh;
+  overflow: hidden;
   padding: 20px;
   color: var(--bs-secondary-color);
   background-color: var(--bs-body-bg);

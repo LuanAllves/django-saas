@@ -1,3 +1,23 @@
 .formulario{
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    min-width: 200px;
+}
+
+.form-block {
+    display: flex;
+    gap: 10px;
+}
+
+.card{
+    margin: 0 auto;
+    width: max-content;
+    margin: auto;
+}
+
+.login-card-body{
+    width: fit-content;
+}
+
+.login-box{
+    width: 100%;
 }

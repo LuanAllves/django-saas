@@ -1,0 +1,7 @@
+Nova Solicitação de Registro
+
+Nome: {{ nome }}
+Email: {{ email }}
+Telefone: {{ telefone }}
+Empresa: {{ empresa }}
+Mensagem: {{ mensagem }}

@@ -14,7 +14,7 @@ urlpatterns = [
     # URL que processa a submissão do formulário de REGISTRO (POST)
     # A view RegistroView é uma classe baseada em view que herda de CreateView
     # e usa o formulário RegisterForm definido em accounts/forms/forms.py
-    path('register/', views.RegistroView.as_view(), name='registroview'),
+    path('register/', views.pre_cadastro_view, name='precadastroview'),
     
     # URL de logout padrão do Djangos
     # A view LogoutView é uma classe baseada em view que herda de LogoutView do Django
