@@ -16,6 +16,12 @@
 
 .login-card-body{
     width: fit-content;
+    max-width: 300px;
+}
+
+.register-card-body{
+    width: fit-content;
+    max-width: 450px;
 }
 
 .login-box{
