@@ -16,10 +16,10 @@ class PlanAdmin(admin.ModelAdmin):
 # SubscriptionAdmin é uma classe que herda de admin.ModelAdmin, que é a classe base para personalizar a interface de administração do Django para o modelo Subscription.
 class SubscriptionAdmin(admin.ModelAdmin): 
     
-    list_display = ('user', 'plan', 'start_date', 'end_date', 'is_active', 'next_billing_date') # Exibe os campos principais na lista de assinaturas
-    search_fields = ('user__username', 'plan__name') # Permite buscar pelo nome do usuário e do plano
+    list_display = ('company', 'plan', 'start_date', 'end_date', 'is_active', 'next_billing_date') # Exibe os campos principais na lista de assinaturas
+    search_fields = ('company__username', 'plan__name') # Permite buscar pelo nome do usuário e do plano
     list_filter = ('is_active', 'plan') # Filtros para facilitar a visualização das assinaturas ativas e planos
-    raw_id_fields = ('user', 'plan')  # Permite usar campos de ID bruto para selecionar usuários e planos, melhorando a performance em listas grandes
+    raw_id_fields = ('company', 'plan')  # Permite usar campos de ID bruto para selecionar usuários e planos, melhorando a performance em listas grandes
 
     # para o que serve raw_id_fields?
     # O raw_id_fields permite que você use um campo de entrada de ID bruto para selecionar objetos relacionados, em vez de um campo de seleção padrão. Isso é útil quando você tem muitos objetos relacionados e deseja evitar a lentidão do carregamento de uma lista suspensa grande. Ele permite que você digite o ID do objeto diretamente ou selecione-o por meio de uma pesquisa rápida.

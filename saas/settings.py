@@ -39,10 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # App instlados
-    'accounts',
-    'core',
-    'captcha',
-    'subscriptions',
+    'accounts', # App de autenticação e gerenciamento de usuários
+    'core', # App que contém as funcionalidades principais do sistema (LandPage, Dashboard, etc.)
+    'captcha', # App para reCAPTCHA
+    'subscriptions', # App para gerenciar assinaturas e planos
+    'companies', # App para gerenciar empresas e seus dados
 ]
 
 MIDDLEWARE = [
