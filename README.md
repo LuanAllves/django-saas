@@ -27,15 +27,22 @@
 ```
 >> pip install -r requirements.txt 
 ```
-> Depois de instalado, faça as migrações e rode o servidor Django.
->> Cria as Migrações.
+-------------------------------------------------------------------------------------
+> * ### Depois de instalado, faça as migrações, crie um super usuario e rode o servidor Django:
+>> Cria as Migrações:
 ```
->> py manage.py makemigrations
+>> python3 manage.py makemigrations
 ```
 >> Migra para o banco de dados.
 ```
 >> py manage.py migrate 
 ```
+>> Crie o SuperUser.
+```
+>> py manage.py createsuperuser
+```
+>> Digite o usuario e de enter, o emial (opcional), caso nao queire de enter, e por fim digite a senha e confirme, caso a senha seja fraca, será solicitado uma confirmação.
+
 >> Roda o servidor.
 ```
 >> py manage.py runserver
@@ -61,8 +68,9 @@
 ```
 >> pip install -r requirements.txt 
 ```
-> Depois de instalado, faça as migrações e rode o servidor Django.
->> Cria as Migrações.
+-------------------------------------------------------------------------------------
+> * ### Depois de instalado, faça as migrações, crie um super usuario e rode o servidor Django:
+>> Cria as Migrações:
 ```
 >> python3 manage.py makemigrations
 ```
@@ -70,6 +78,12 @@
 ```
 >> py manage.py migrate 
 ```
+>> Crie o SuperUser.
+```
+>> py manage.py createsuperuser
+```
+>> Digite o usuario e de enter, o emial (opcional), caso nao queire de enter, e por fim digite a senha e confirme, caso a senha seja fraca, será solicitado uma confirmação.
+
 >> Roda o servidor.
 ```
 >> py manage.py runserver
