@@ -1,0 +1,27 @@
+{% extends "global/base.html" %}
+
+{% block title %}{{company.name}} | Produtos{% endblock title %}
+
+{% block title_content %}<h1>Produtos</h1>{% endblock title_content%}
+
+{% block content %}
+    
+    <p><a href="{% url 'products:product_create' company_slug=company.slug %}">Adicionar Novo Produto</a></p>
+
+    {% if products %}
+        <ul>
+            {% for product in products %}
+                <li>
+                    <a href="{% url 'products:product_detail' company_slug=company.slug pk=product.pk %}">{{ product.name }}</a> 
+                    - SKU: {{ product.sku }} - Estoque: {{ product.quantity }}
+                    (<a href="{% url 'products:product_update' company_slug=company.slug pk=product.pk %}">Editar</a> | 
+                    <a href="{% url 'products:product_delete' company_slug=company.slug pk=product.pk %}">Excluir</a>)
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nenhum produto cadastrado para esta ótica.</p>
+    {% endif %}
+
+    <p><a href="/">Voltar para Home</a></p> {# Ajuste conforme sua URL da dashboard/home #}
+{% endblock content %}

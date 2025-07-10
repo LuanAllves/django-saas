@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'captcha', # App para reCAPTCHA
     'subscriptions', # App para gerenciar assinaturas e planos
     'companies', # App para gerenciar empresas e seus dados
+    'products', # App para gerenciar produtos e serviços
 ]
 
 MIDDLEWARE = [
@@ -64,7 +65,9 @@ ROOT_URLCONF = 'saas.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates',  # Diretório principal de templates
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -164,3 +167,5 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 RECAPTCHA_PUBLIC_KEY = '6LcbM3orAAAAAJWL7EbwZuCIRBV7H2WzDRJANozf'
 RECAPTCHA_PRIVATE_KEY = '6LcbM3orAAAAAMyRHvRXuYGODpJVQ7sZzu31Uss1'
+
+AUTH_USER_MODEL = 'accounts.CustomUser'

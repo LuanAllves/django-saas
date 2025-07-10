@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 
 # ------------------> Inicio do modelo de Plano <-----------------------------------
 # Esse modelo é responsavel por gerenciar os Planos, aqui armazenamos as informações que esses planos tem, como preço, nome, descrição, se esta ativo, lista de recursos e etc.
@@ -36,7 +37,7 @@ class Subscription(models.Model):
         'companies.Company', # Referencia o modelo de Empresa como uma string, que foi criado anteriormente.
         on_delete=models.CASCADE, # Se a empresa for excluída, todas as assinaturas associadas também serão excluídas.
         related_name='subscriptions', # Permite acessar as assinaturas a partir da empresa (Company.subscriptions).
-        verbose_name="Empresa" # Nome do campo na interface administrativa.
+        verbose_name="Empresa", # Nome do campo na interface administrativa.
     )
     
     plan = models.ForeignKey(Plan, on_delete=models.PROTECT, related_name="subscriptions", verbose_name="Plano") # Protege contra exclusão de planos que estão em uso.
@@ -57,7 +58,7 @@ class Subscription(models.Model):
         # Isso é importante para evitar que um usuário tenha múltiplas assinaturas ativas ao mesmo tempo.
         # A condição é que a assinatura deve estar ativa (is_active=True).
         constraints = [ 
-            models.UniqueConstraint(fields=['company'], condition=models.Q(is_active=True), name='unique_active_subscription_for_company')
+            models.UniqueConstraint(fields=['company'], condition=Q(is_active=True), name='unique_active_subscription_for_company')
         ]
     
     def __str__(self):

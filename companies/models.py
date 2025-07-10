@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify # Importa a função slugify para gerar slugs amigáveis
 
 # Modelo que representa uma empresa (ótica) no sistema.
 # Cada empresa terá uma assinatura associada, que define o plano e as funcionalidades disponíveis.
@@ -28,7 +29,7 @@ class Company(models.Model):
 
     subscription = models.OneToOneField(
         'subscriptions.Subscription', # Relaciona a assinatura com a empresa como um campo de chave estrangeira.
-        related_name='companies', # Nome relacionado para acessar a empresa a partir da assinatura.
+        related_name='active_company_for_subscription', # Permite acessar a empresa a partir da assinatura (Subscription.active_company).
         on_delete=models.SET_NULL, # Se a assinatura for excluída, a empresa não será excluída, mas perderá a associação com a assinatura.
         null=True, # Permite que a assinatura seja nula inicialmente
         blank=True, # Permite que a assinatura seja opcional inicialmente
@@ -45,5 +46,17 @@ class Company(models.Model):
 
     def __str__(self): # Método para representar a empresa como string
         return self.name # Retorna o nome da empresa como representação textual
+    
+    # ATENÇÃO: Método save() adicionado para gerar o slug automaticamente
+    def save(self, *args, **kwargs):
+        if not self.slug: # Gera o slug apenas se ele não foi definido manualmente
+            self.slug = slugify(self.name)
+            # Garante que o slug seja único, adicionando um sufixo se necessário
+            original_slug = self.slug
+            contador = 1
+            while Company.objects.filter(slug=self.slug).exists():
+                self.slug = f"{original_slug}-{contador}"
+                contador += 1
+        super().save(*args, **kwargs)
     
 # ------------------> Fim do modelo Empresa <------------------

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }} - {{ company.name }}</title>
+</head>
+<body>
+    <h1>Detalhes do Produto: {{ product.name }}</h1>
+    <p>Empresa: {{ company.name }}</p>
+    <p>Descrição: {{ product.description }}</p>
+    <p>SKU: {{ product.sku }}</p>
+    <p>Quantidade em Estoque: {{ product.quantity }}</p>
+    <p>Preço de Venda: R$ {{ product.sale_price }}</p>
+    <p>Categoria: {{ product.category }}</p>
+    <p>Ativo: {{ product.is_active|yesno:"Sim,Não" }}</p>
+
+    <p>
+        <a href="{% url 'products:product_update' company_slug=company.slug pk=product.pk %}">Editar</a> |
+        <a href="{% url 'products:product_delete' company_slug=company.slug pk=product.pk %}">Excluir</a>
+    </p>
+    <p><a href="{% url 'products:product_list' company_slug=company.slug %}">Voltar para a lista de produtos</a></p>
+</body>
+</html>

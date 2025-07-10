@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Exclusão</title>
+</head>
+<body>
+    <h1>Confirmar Exclusão de Produto</h1>
+    <p>Você tem certeza que deseja excluir o produto "{{ product.name }}" (SKU: {{ product.sku }}) da ótica {{ company.name }}?</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Sim, Excluir</button>
+        <a href="{% url 'products:product_detail' company_slug=company.slug pk=product.pk %}">Cancelar</a>
+    </form>
+</body>
+</html>

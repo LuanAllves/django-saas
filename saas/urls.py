@@ -18,9 +18,19 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('core.urls')),
-    path('accounts/', include('accounts.urls')),
-    # ADICIONE ESTA LINHA PARA INCLUIR AS URLS DO CAPTCHA
-    path('captcha/', include('captcha.urls')),
+    path('admin/', admin.site.urls), # URL para o painel de administração do Django
+    path('', include('core.urls')), # URL para o aplicativo de gerenciamento das paginas principais do site
+    path('accounts/', include('accounts.urls')), # URL para o aplicativo de gerenciamento de contas de usuário
+    path('<slug:company_slug>/produtos/', include('products.urls')), # URL para o aplicativo de gerenciamento de produtos, usando um slug para identificar a empresa
+    
+    path('captcha/', include('captcha.urls')), # URL para o aplicativo de CAPTCHA, que é usado para proteger formulários contra spam
 ]
+
+"""
+Explicação:
+- `path('admin/', admin.site.urls)`: Define a URL para o painel de administração do Django, onde os administradores podem gerenciar o site.
+- `path('', include('core.urls'))`: Inclui as URLs do aplicativo `core`, que geralmente contém as páginas principais do site, como a página inicial.
+- `path('accounts/', include('accounts.urls'))`: Inclui as URLs do aplicativo `accounts`, que gerencia as contas de usuário, como registro, login e perfil.
+- `path('slug:company-slug/', include('products.urls'))`: Inclui as URLs do aplicativo `products`, que gerencia os produtos de uma empresa específica, identificada pelo slug da empresa.
+- `path('captcha/', include('captcha.urls'))`: Inclui as URLs do aplicativo `captcha`, que é usado para proteger formulários contra spam, adicionando um desafio CAPTCHA.
+"""
