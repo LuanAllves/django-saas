@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <!-- começar::Cabeçalho -->
-
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>{% block title %}Dashboard{% endblock title %}</title><!-- começar :: Meta Tags de Acessibilidade -->
@@ -38,8 +37,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css" integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0=" crossorigin="anonymous" />
     <!-- jsvectormap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css" integrity="sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4=" crossorigin="anonymous" />
-  </head> <!-- fim::Cabeçalho --> <!-- começo :: Corpo -->
+  </head> 
+  <!-- fim::Cabeçalho --> 
 
+  <!-- começo :: Corpo -->
   <body class="layout-fixed sidebar-expand-lg sidebar-open bg-body-tertiary">
     <!-- begin::App Wrapper -->
     <div class="app-wrapper">
@@ -114,9 +115,13 @@
             <!-- begin::Sidebar Menu -->
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="navigation" aria-label="Main navigation" data-accordion="false" id="navigation">
               <li class="nav-item menu-open">
-                <a href="#" class="nav-link active">
+                <a href="{% url 'core:dashboardview' %}" class="nav-link active">
                   <i class="nav-icon bi bi-speedometer"></i>
                   <p>Dashboard</p>
+                </a>
+                <a href="{% url 'products:product_list' user.company.slug %}" class="nav-link active">
+                  <i class="nav-icon bi bi-speedometer"></i>
+                  <p>Produtos</p>
                 </a>
               </li>
             </ul> <!-- end::Sidebar Menu -->
@@ -138,7 +143,7 @@
         </div> <!-- end::App Content Header --> <!-- begin::App Content -->
         <div class="app-content">
           <!-- begin::Container -->
-          {% block title_content%}
+          {% block title_content %}
           {% endblock title_content %}
           <div class="container-fluid">
             {% block content %}

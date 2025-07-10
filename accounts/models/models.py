@@ -52,6 +52,6 @@ class CustomUser(AbstractUser):
         return self.username or self.email or "Usuário Sem Nome" # Retorna o nome de usuário, email ou uma string padrão se ambos forem vazios.
 
     class Meta:
-        verbose_name = 'Usuário Personalizado'
-        verbose_name_plural = 'Usuários Personalizados'
+        verbose_name = 'Usuário'
+        verbose_name_plural = 'Usuários'
         ordering = ['username']  # Ordena os usuários pelo nome de usuário.
