@@ -7,7 +7,7 @@ from .models import Plan, Subscription
 @admin.register(Plan)
 # PlanAdmin é uma classe que herda de admin.ModelAdmin, que é a classe base para personalizar a interface de administração do Django para o modelo Plan.
 class PlanAdmin(admin.ModelAdmin): 
-    list_display = ('name', 'price', 'is_active', 'created_at', 'update_at') # Exibe os campos principais na lista de planos
+    list_display = ('name', 'price', 'is_active', 'created_at', 'updated_at') # Exibe os campos principais na lista de planos
     search_fields = ('name', 'description') # Permite buscar pelo nome e descrição do plano
     list_filter = ('is_active',) # Filtros para facilitar a visualização dos planos ativos
 

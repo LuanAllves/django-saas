@@ -20,6 +20,7 @@ class Company(models.Model):
     zip_code = models.CharField(max_length=10, blank=True, null=True, verbose_name="CEP") # CEP da empresa
 
     is_active = models.BooleanField(default=True, verbose_name="Ativa") # Indica se a empresa está ativa
+    slug = models.SlugField(max_length=255, unique=True, verbose_name="Slug") # Slug para URL amigável da empresa
 
     # Cada empresa terá uma assinatura.
     # Usaremos OnetoOneField para garantir que uma empresa tenha APENAS UMA assinatura ativa.
@@ -27,6 +28,7 @@ class Company(models.Model):
 
     subscription = models.OneToOneField(
         'subscriptions.Subscription', # Relaciona a assinatura com a empresa como um campo de chave estrangeira.
+        related_name='companies', # Nome relacionado para acessar a empresa a partir da assinatura.
         on_delete=models.SET_NULL, # Se a assinatura for excluída, a empresa não será excluída, mas perderá a associação com a assinatura.
         null=True, # Permite que a assinatura seja nula inicialmente
         blank=True, # Permite que a assinatura seja opcional inicialmente

@@ -1,5 +1,4 @@
 from django.db import models
-from django.conf import settings # Para referenciar o modelo de Usuário padrão do Django
 
 # ------------------> Inicio do modelo de Plano <-----------------------------------
 # Esse modelo é responsavel por gerenciar os Planos, aqui armazenamos as informações que esses planos tem, como preço, nome, descrição, se esta ativo, lista de recursos e etc.
@@ -15,7 +14,7 @@ class Plan(models.Model):
     features = models.TextField(blank=True, help_text="Liste os recursos separados por vírgula (ex: '5 usuários, 10GB armazenamento')", verbose_name="Recursos")
     is_active = models.BooleanField(default=True, verbose_name="Ativo")
     created_at = models.DateTimeField(auto_now_add=True)
-    update_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = "Plano"
@@ -54,15 +53,12 @@ class Subscription(models.Model):
         verbose_name = "Assinatura" # Nome singular do modelo.
         verbose_name_plural = "Assinaturas" # Nome plural do modelo.
 
-        # Garante que um usuário/empresa só tenha uma assinatura ativa por vez para um plano.
-        unique_together = ('company', 'plan', 'is_active') # Garante que não haja duplicatas de assinaturas ativas para o mesmo usuário e plano.
-
         # Adiciona uma restrição única para garantir que um usuário só tenha uma assinatura ativa por vez.
         # Isso é importante para evitar que um usuário tenha múltiplas assinaturas ativas ao mesmo tempo.
         # A condição é que a assinatura deve estar ativa (is_active=True).
         constraints = [ 
-            models.UniqueConstraint(fields=['company', 'is_active'], condition=models.Q(is_active=True), name='inique_active_subscription')
+            models.UniqueConstraint(fields=['company'], condition=models.Q(is_active=True), name='unique_active_subscription_for_company')
         ]
     
     def __str__(self):
-        return f"Assinatura de {self.company.username} - {self.plan.name}"
+        return f"Assinatura de {self.company.name} - {self.plan.name}"
