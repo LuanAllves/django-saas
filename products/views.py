@@ -61,6 +61,7 @@ class ProductListView(LoginRequiredMixin, CompanyMixin, ListView):
         context['title_complete'] = 'PRODUTOS CADASTRADOS' # Título da página
         context['add_url'] = reverse_lazy('products:product_create', kwargs={'company_slug': self.company.slug}) # URL para adicionar um novo produto
         context['company'] = self.company # Adiciona a empresa ao contexto
+        context['content_title'] = 'PRODUTOS' # Título do conteúdo
         return context
     
 # --------------------------------------> Fim da Listagem de Produtos <---------------------------
@@ -82,6 +83,13 @@ class ProductCreateView(LoginRequiredMixin, CompanyMixin, CreateView):
         # Antes de salvar o formulário, define a empresa correta do produto.
         form.instance.company = self.company
         return super().form_valid(form) # Chama o método da classe base para salvar o formulário e redirecionar
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs) # Obtém o contexto padrão
+        context['title_complete'] = 'CADASTRADOS PRODUTOS' # Título da página
+        context['content_title'] = 'PRODUTOS' # Título do conteúdo
+        context['return_url'] = reverse_lazy('products:product_list', kwargs={'company_slug': self.company.slug}) # URL para retornar à lista de produtos
+        return context
 # --------------------------------------> Fim da Criação <---------------------------
 
 # ---------------------------> Atualização <---------------------------
@@ -89,6 +97,13 @@ class ProductUpdateView(LoginRequiredMixin, CompanyMixin, UpdateView):
     model = Product # Modelo que será utilizado para atualizar o produto
     template_name = 'products/product_form.html' # Template que será renderizado
     form_class = ProductForm # Formulário que será utilizado para atualizar o produto
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs) # Obtém o contexto padrão
+        context['title_complete'] = 'ATUALIZAR PRODUTO' # Título da página
+        context['content_title'] = 'PRODUTOS' # Título do conteúdo
+        context['return_url'] = reverse_lazy('products:product_list', kwargs={'company_slug': self.company.slug}) # URL para retornar à lista de produtos
+        return context
 # ---------------------------------------> Fim da Atualização <---------------------------
 
 # ---------------------------> Exclusão <---------------------------

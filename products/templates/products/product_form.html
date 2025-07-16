@@ -4,20 +4,44 @@
     {% if form.instance.pk %}Editar{% else %}Cadastrar{% endif %} Produto | {{ company.name }}
 {% endblock title %}
 
-{% block contet_title%}
-    
-{% endblock content_title %}
+{% block title_content %}
+    {{content_title}}
+{% endblock title_content %}
 
 {% block content %}
-    <h1>
-        {% if form.instance.pk %}Editar Produto{% else %}Cadastra Produto{% endif %}
-        para {{ company.name }}
-    </h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Salvar</button>
-    </form>
-    <p><a href="{% url 'products:product_list' company_slug=company.slug %}">Cancelar</a></p>
+<div class="container-fluid">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="row">
+            <div class="card">
+                <div class="header"></div>
+                    <h2>
+                        <a href="{{return_url}}"><i class="material-icons">&#xE5C4;</i></a>{{title_complete}}
+                    </h2>
+                    <div><small>Campos marcados com <strong style="color:red;">*</strong> são obrigatórios.</small></div>
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="body">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            {% include 'products/produto_tab_list.html' %}
+                            <div class="tab-content">
+                                <!-- Tab dados gerais -->
+                                <div role="tabpanel" class="tab-pane active" id="tab_dados_gerais">{% include 'products/produto_tab_dados_gerais.html' %}</div>
+                                <!-- Tab estoque -->
+                                <div role="tabpanel" class="tab-pane formset-tab" id="tab_estoque">{% include 'products/produto_tab_estoque.html' %}</div>
+                                <!-- Tab fiscal -->
+                                <div role="tabpanel" class="tab-pane formset-tab" id="tab_fiscal">{{ form.as_p }}</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-success foot-btn" type="submit"><i class="material-icons">&#xE148;</i><span> SALVAR</span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}
 
+{% block scripts %}
+    {% include 'products/produto_jsblock.html' %}
+{% endblock scripts %}
