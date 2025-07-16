@@ -1,3 +1,8 @@
+## Licença
+
+Este projeto está licenciado sob uma Licença Personalizada baseada na MIT, com restrição de uso comercial. Para mais detalhes, veja o arquivo [LICENSE](./LICENSE).
+
+
 ### Guia básico de instalação do sistema Django
 
 # Criando e ativando o ambiente virtual.
