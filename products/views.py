@@ -55,6 +55,14 @@ class ProductListView(LoginRequiredMixin, CompanyMixin, ListView):
     model = Product # Modelo que será utilizado para listar os produtos
     template_name = 'products/product_list.html' # Template que será renderizado
     context_object_name = 'products' # Nome da variável no template que conterá a lista de produtos (products.all())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs) # Obtém o contexto padrão
+        context['title_complete'] = 'PRODUTOS CADASTRADOS' # Título da página
+        context['add_url'] = reverse_lazy('products:product_create', kwargs={'company_slug': self.company.slug}) # URL para adicionar um novo produto
+        context['company'] = self.company # Adiciona a empresa ao contexto
+        return context
+    
 # --------------------------------------> Fim da Listagem de Produtos <---------------------------
 
 # ---------------------------> Detalhamento <---------------------------    

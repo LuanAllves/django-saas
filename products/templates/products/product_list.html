@@ -2,25 +2,58 @@
 
 {% block title %}{{company.name}} | Produtos{% endblock title %}
 
-{% block title_content %}<h1>Produtos Cadastrados</h1>{% endblock title_content%}
-
+{% block title_content %}
+    PRODUTOS
+{% endblock title_content%}
 {% block content %}
-    
-    <p><a href="{% url 'products:product_create' company_slug=company.slug %}">Adicionar Novo Produto</a></p>
+<div class="container-fluid lista">
+    <div class="card">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="header">
+                <h2>
+                {{title_complete}}
+                </h2>
+                <div class="header-btn">
+                    <a href="{{add_url}}" class="btn btn-success"><i class="material-icons">&#xE148;</i><span> ADICIONAR</span></a>
+                    <button class="btn btn-red btn-remove"><i class="material-icons">&#xE872;</i></button>
+                </div>
+            </div>
+            <div class="body">
+                {% include 'global/search.html' %}
+                <div class="table-responsive">
+                    <table id="lista-database" class="table table-bordered table-striped lista-table">
+                        <thead>
+                            <tr>
+                            <th>Código</th>                   
+                            <th>Descrição</th>
+                            <th>Categoria</th>
+                            <th>Remover</th>
+                            </tr>
+                        </thead>
 
-    {% if products %}
-        <ul>
-            {% for product in products %}
-                <li>
-                    <a href="{% url 'products:product_detail' company_slug=company.slug pk=product.pk %}">{{ product.name }}</a> 
-                    - SKU: {{ product.sku }} - Estoque: {{ product.quantity }}
-                    (<a href="{% url 'products:product_update' company_slug=company.slug pk=product.pk %}">Editar</a> | 
-                    <a href="{% url 'products:product_delete' company_slug=company.slug pk=product.pk %}">Excluir</a>)
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>Nenhum produto cadastrado.</p>
-    {% endif %}
+                        <tbody>
+                            {% if products %}
+                                {% for product in products %}
+                                    <tr class="lista-item" data-href="{% url 'products:product_detail' company_slug=company.slug pk=product.pk %}">
+                                        <td> {{ product.name }} </td> 
+                                        <td>{{ product.sku }}</td> 
+                                        <td>{{ product.quantity }}</td>
+                                        <td class="lista-remove">
+                                            <input type="checkbox" name="{{produto.id}}" id="remover-entrada-{{produto.id}}"/>
+                                            <label class="remove-entry-label" for="remover-entrada-{{produto.id}}"></label>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <p>Nenhum produto cadastrado.</p>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
 {% endblock content %}
