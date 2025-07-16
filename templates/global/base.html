@@ -42,18 +42,20 @@
 
   <!-- começo :: Corpo -->
   <body class="layout-fixed sidebar-expand-lg sidebar-open bg-body-tertiary">
-    <!-- begin::App Wrapper -->
+    <!-- Começo ::App Wrapper -->
     <div class="app-wrapper">
-      <!-- begin::Header -->
+      <!-- Começo ::Header -->
       <nav class="app-header navbar navbar-expand bg-body">
-        <!-- begin::Container -->
+        <!-- Começo ::Container -->
         <div class="container-fluid">
-          <!-- begin::Start Navbar Links -->
+          <!-- Começo ::Start Navbar Links -->
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button"><i class="bi bi-list"></i></a>
             </li>
-          </ul> <!-- end::Start Navbar Links --> <!-- begin::End Navbar Links -->
+          </ul> 
+          <!-- Fim ::Start Navbar Links --> 
+          <!-- Começo ::End Navbar Links -->
           <ul class="navbar-nav ms-auto">
             <!-- begin::Navbar Search -->
             <!-- begin::Messages Dropdown Menu -->
@@ -74,29 +76,29 @@
                   <i class="bi bi-file-earmark-fill me-2"></i> 3 new reports
                   <span class="float-end text-secondary fs-7">2 days</span>
                 </a>
-                <div class="dropdown-divider"></div> <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                <div class="dropdown-divider"></div> <a href="#" class="dropdown-item dropdown-footer">Ver todas as notificações</a>
               </div>
             </li> <!-- end::Notifications Dropdown Menu --> <!-- begin::Fullscreen Toggle -->
             <li class="nav-item">
               <a class="nav-link" href="#" data-lte-toggle="fullscreen"><i data-lte-icon="maximize" class="bi bi-arrows-fullscreen"></i> <i data-lte-icon="minimize" class="bi bi-fullscreen-exit" style="display: none;"></i></a>
             </li> <!-- end::Fullscreen Toggle --> <!-- begin::User Menu Dropdown -->
             <li class="nav-item dropdown user-menu">
-              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><img src="/assets/img/user2-160x160.jpg" class="user-image rounded-circle shadow" alt="User Image" /> <span class="d-none d-md-inline">WL SAAS</span></a>
+              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><span class="d-none d-md-inline">{{ user.username }}</span></a>
               <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                 <!-- begin::User Image -->
                 <li class="user-header text-bg-primary">
-                  <img src="/assets/img/user2-160x160.jpg" class="rounded-circle shadow" alt="User Image" />
+                  <img src="{% static 'global/img/icon_user.png' %}" class="rounded-circle shadow" alt="User Image" />
                   <p>
-                    WL - Web Developer
-                    <small>Member since Nov. 2025</small>
+                    Usuário: {{ user.username }} <br> Empresa: {{ user.company.name }}
+                    <small>ID - {{ user.id}}</small>
                   </p>
                 </li> <!-- end::User Image --> <!-- begin::Menu Body -->
                 <!-- begin::Menu Footer -->
                 <li class="user-footer">
-                  <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                  <a href="#" class="btn btn-default btn-flat">Perfil <i class="ms-1 nav-icon bi bi-person-fill"></i></a>
                   <form action="{% url 'accounts:logout' %}" method="post" class="float-end">
                     {% csrf_token %}
-                    <button class="btn btn-default btn-flat float-end">Sair</button>
+                    <button class="btn btn-default btn-flat float-end"> Sair   <i class="ms-1 nav-icon bi bi-box-arrow-right"></i></button>
                   </form>
                 </li> <!-- end::Menu Footer -->
               </ul>
@@ -107,7 +109,7 @@
       <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
         <!-- begin::Sidebar Brand -->
         <div class="sidebar-brand">
-          <!-- begin::Brand Link --> <a href="./index.html" class="brand-link"><!-- begin::Brand Image --> <img src="/assets/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image opacity-75 shadow" /> <!-- end::Brand Image --> <!-- begin::Brand Text --> <span class="brand-text fw-light">SAAS EXPRESS</span> <!-- end::Brand Text --></a> <!-- end::Brand Link -->
+          <!-- begin::Brand Link --> <a href="{% url 'core:dashboardview' %}" class="brand-link"><!-- begin::Brand Image --> <img src="{% static 'global/img/logo.png' %}" alt="Logo" class="brand-image opacity-75" /> <!-- end::Brand Image --> <!-- begin::Brand Text --> <span class="brand-text fw-light">SAAS EXPRESS</span> <!-- end::Brand Text --></a> <!-- end::Brand Link -->
         </div>
         <!-- end::Sidebar Brand --> <!-- begin::Sidebar Wrapper -->
         <div class="sidebar-wrapper">
@@ -116,11 +118,11 @@
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="navigation" aria-label="Main navigation" data-accordion="false" id="navigation">
               <li class="nav-item menu-open">
                 <a href="{% url 'core:dashboardview' %}" class="nav-link active">
-                  <i class="nav-icon bi bi-speedometer"></i>
+                  <i class="nav-icon bi bi-columns-gap"></i>
                   <p>Dashboard</p>
                 </a>
                 <a href="{% url 'products:product_list' user.company.slug %}" class="nav-link active">
-                  <i class="nav-icon bi bi-speedometer"></i>
+                  <i class="nav-icon bi bi-eyeglasses"></i>
                   <p>Produtos</p>
                 </a>
               </li>
@@ -154,12 +156,12 @@
       </main> <!-- end::App Main --> <!-- begin::Footer -->
       <footer class="app-footer">
         <!-- begin::To the end -->
-        <div class="float-end d-none d-sm-inline">Anything you want</div> <!-- end::To the end --> <!-- begin::Copyright -->
+        <div class="float-end d-none d-sm-inline"><i class="bi bi-clock"></i> <span id="current-time"></span></div> <!-- end::To the end --> <!-- begin::Copyright -->
         <strong>
-          Copyright &copy; 2014-2025&nbsp;
-          <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
+          Copyright &copy; 09/2025&nbsp;
+          <a href="/" class="text-decoration-none">SAAS EXPRESS</a>.
         </strong>
-        All rights reserved.
+        Todos os direitos reservados.
         <!-- end::Copyright -->
       </footer> <!-- end::Footer -->
     </div> <!-- end::App Wrapper --> <!-- begin::Script --> <!-- begin::Third Party Plugin(OverlayScrollbars) -->
@@ -175,6 +177,20 @@
     <script src="{% static 'global/js/adminlte.js' %}"></script>
     <!-- end::Required Plugin(AdminLTE) -->
     <!-- begin::OverlayScrollbars Configure -->
+    <script>
+      function atualizarDataHora() {
+        const dataHoraElemento = document.getElementById("current-time");
+        const agora = new Date();
+        const dataHoraFormatada = agora.toLocaleString('pt-BR'); // Formata para o padrão brasileiro
+        dataHoraElemento.textContent = dataHoraFormatada;
+      }
+
+      // Chama a função imediatamente para exibir a data e hora ao carregar a página
+      atualizarDataHora();
+
+      // Atualiza a data e hora a cada segundo (1000 milissegundos)
+      setInterval(atualizarDataHora, 1000);
+    </script>
     <script>
       const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper'
       const Default = {
