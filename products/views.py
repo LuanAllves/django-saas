@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin # Para exigir login
 from .models import Product # Importa o modelo Product
 from companies.models import Company # Importa o modelo Company
 from .forms import ProductForm # Importa o formulário ProductForm 
+from django.contrib import messages # Para exibir mensagens de sucesso ou erro
 
 # ---------------------------> mixin para garantir multitenância <---------------------------
 class CompanyMixin:
@@ -110,6 +111,19 @@ class ProductUpdateView(LoginRequiredMixin, CompanyMixin, UpdateView):
 class ProductDeleteView(LoginRequiredMixin, CompanyMixin, DeleteView):
     model = Product # Modelo que será utilizado para excluir o produto
     template_name = 'products/product_confirm_delete.html' # Template que será renderizado para confirmação de exclusão
+
+    # SOBRESCRITURA PARA EVITAR O ERRO 'company'
+    def get_form_kwargs(self):
+        # A DeleteView não precisa do argumento 'company' no seu formulário interno.
+        # Retornamos apenas os kwargs padrão que a super classe (DeleteView) espera.
+        return super(CompanyMixin, self).get_form_kwargs() 
+        # Usamos super(CompanyMixin, self) para pular o get_form_kwargs do CompanyMixin
+        # e chamar o get_form_kwargs da próxima classe na cadeia de herança (DeleteView)
+
+    # Opcional: Adicionar mensagem de sucesso (requer django.contrib.messages)
+    def form_valid(self, form):
+        messages.success(self.request, f'Produto "{self.get_object().name}" deletado com sucesso!')
+        return super().form_valid(form)
 # --------------------------------> Fim da Exclusão <---------------------------
 
 

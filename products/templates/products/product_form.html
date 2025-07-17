@@ -23,14 +23,8 @@
                     {% csrf_token %}
                     <div class="body">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            {% include 'products/produto_tab_list.html' %}
                             <div class="tab-content">
-                                <!-- Tab dados gerais -->
-                                <div role="tabpanel" class="tab-pane active" id="tab_dados_gerais">{% include 'products/produto_tab_dados_gerais.html' %}</div>
-                                <!-- Tab estoque -->
-                                <div role="tabpanel" class="tab-pane formset-tab" id="tab_estoque">{% include 'products/produto_tab_estoque.html' %}</div>
-                                <!-- Tab fiscal -->
-                                <div role="tabpanel" class="tab-pane formset-tab" id="tab_fiscal">{{ form.as_p }}</div>
+                                <div>{{ form.as_p }}</div>
                             </div>
                         </div>
                         <button class="btn btn-success foot-btn" type="submit"><i class="material-icons">&#xE148;</i><span> SALVAR</span></button>
@@ -42,6 +36,3 @@
 </div>
 {% endblock content %}
 
-{% block scripts %}
-    {% include 'products/produto_jsblock.html' %}
-{% endblock scripts %}

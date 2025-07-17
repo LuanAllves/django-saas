@@ -1,18 +1,35 @@
 from django.db import models
 
+# Defina as opções de unidade de medida
+UNIT_CHOICES = [
+    ('UN', 'Unidade(s)'),
+    ('CX', 'Caixa(s)'),
+    ('PCT', 'Pacote(s)'),
+    ('PÇ', 'Peça(s)'),
+    ('KG', 'Quilograma(s)'),
+    ('LT', 'Litro(s)'),
+    ('MT', 'Metro(s)'),
+    ('DZ', 'Dúzia(s)'),
+    # Adicione mais unidades conforme necessário
+]
+
 # Create your models here.
 class Product(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-    cost_price = models.DecimalField(max_digits=10, decimal_places=2)
-    sale_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    marca = models.CharField(max_length=50, blank=True, null=True)
-    category = models.CharField(max_length=50, blank=True, null=True)
-    quantity = models.PositiveIntegerField(default=0)
-    sku = models.CharField(max_length=50, unique=True, blank=True, null=True)
-    min_stock_level = models.PositiveIntegerField(default=0, help_text="Quantidade mínima em estoque para alertas")
+    name = models.CharField(verbose_name='Nome', max_length=100, help_text="Nome do produto")
+    description = models.TextField(verbose_name='Descrição', blank=True, null=True, help_text="Descrição do produto")
+    cost_price = models.DecimalField(verbose_name='Custo', max_digits=10, decimal_places=2, blank=True, null=True, help_text="Preço de custo do produto")
+    sale_price = models.DecimalField(verbose_name='Venda', max_digits=10, decimal_places=2, blank=True, null=True, help_text="Preço de venda do produto")
+    created_at = models.DateTimeField(verbose_name='Criação', auto_now_add=True, blank=True, null=True, help_text="Data de criação do produto")
+    updated_at = models.DateTimeField(verbose_name='Atualização', auto_now=True, blank=True, null=True, help_text="Data de atualização do produto")
+    marca = models.CharField(verbose_name='Marca', max_length=20, blank=True, null=True, help_text="Marca do produto")
+    category = models.CharField(verbose_name='Categoria', max_length=20, blank=True, null=True, help_text="Categoria do produto")
+    quantity = models.PositiveIntegerField(verbose_name='Estoque', default=0, help_text="Quantidade atual em estoque")
+    sku = models.CharField(verbose_name='SKU', max_length=20, unique=True, blank=True, null=True, help_text="Código SKU do produto")
+    min_stock_level = models.PositiveIntegerField(verbose_name='Min. Estoque', default=0, help_text="Quantidade mínima em estoque para alertas")
+    ean = models.CharField(verbose_name='EAN', max_length=13, unique=True, blank=True, null=True, help_text="Código EAN do produto")
+    unit = models.CharField(verbose_name='Unidade de Medida', max_length=3, default='UN', choices=UNIT_CHOICES, help_text="Unidade de medida do produto")
+    reference = models.CharField(verbose_name='Referência', max_length=20, blank=True, null=True, help_text="Referência do produto")
+    local = models.CharField(verbose_name='Local', max_length=20, blank=True, null=True, help_text="Localização do produto no estoque")
     
     
     company = models.ForeignKey(
