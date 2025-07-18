@@ -1,12 +1,14 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ product.name }} - {{ company.name }}</title>
-</head>
-<body>
-    <h1>Detalhes do Produto: {{ product.name }}</h1>
+{% extends 'global/base.html' %}
+
+{% block title %}{{company.name}} | Produtos{% endblock title %}
+
+{% block title_content %}{{content_title}}{% endblock title_content %}
+
+{% block content %}
+    <h2>
+        <a href="{{return_url}}"><i class="material-icons">&#xE5C4;</i></a>{{title_complete}}
+    </h2>
+    
     <p>Empresa: {{ company.name }}</p>
     <p>Descrição: {{ product.description }}</p>
     <p>SKU: {{ product.sku }}</p>
@@ -20,5 +22,5 @@
         <a href="{% url 'products:product_delete' company_slug=company.slug pk=product.pk %}">Excluir</a>
     </p>
     <p><a href="{% url 'products:product_list' company_slug=company.slug %}">Voltar para a lista de produtos</a></p>
-</body>
-</html>
+
+{% endblock %}

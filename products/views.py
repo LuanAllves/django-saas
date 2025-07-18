@@ -124,6 +124,13 @@ class ProductDeleteView(LoginRequiredMixin, CompanyMixin, DeleteView):
     def form_valid(self, form):
         messages.success(self.request, f'Produto "{self.get_object().name}" deletado com sucesso!')
         return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs) # Obtém o contexto padrão
+        context['title_complete'] = 'EXCLUIR PRODUTO' # Título da página
+        context['content_title'] = 'PRODUTOS' # Título do conteúdo
+        context['return_url'] = reverse_lazy('products:product_list', kwargs={'company_slug': self.company.slug}) # URL para retornar à lista de produtos
+        return context
 # --------------------------------> Fim da Exclusão <---------------------------
 
 
