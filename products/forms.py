@@ -3,10 +3,16 @@ from django import forms
 from .models import Product
 
 class ProductForm(forms.ModelForm): # Formulário para criar/editar produtos
+
+
+
     class Meta:# Meta classe para definir o modelo e os campos do formulário
         # Define o modelo que será utilizado pelo formulário
         model = Product
-        fields = ['name', 'description', 'sku', 'quantity', 'min_stock_level', 'cost_price', 'sale_price', 'company', 'ean', 'reference', 'unit', 'local', 'marca'] # Campos que serão exibidos no formulário
+        fields = ['name', 'description', 'category', 'sku', 'quantity', 'min_stock_level', 'cost_price', 'sale_price', 'company', 'ean', 'reference', 'unit', 'local', 'marca'] # Campos que serão exibidos no formulário
+        widgets = {
+            'description': forms.Textarea(attrs={'rows': 2, 'cols': 80, 'class': 'descricao'})
+        }
 
     def __init__(self, *args, **kwargs): # Inicializa o formulário
         # Aceita o argumento 'company' do CompanyMixin e o remove antes de passar para super().__init__
