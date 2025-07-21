@@ -6,11 +6,13 @@ app_name = 'products' # Define o namespace para as URLs do aplicativo
 # Define as URLs do aplicativo products
 # Cada URL é mapeada para uma view específica
 urlpatterns = [
-    path('', views.ProductListView.as_view(), name='product_list'), # Lista todos os produtos
-    path('adicionar/', views.ProductCreateView.as_view(), name='product_create'), # Cria um novo produto
-    path('<int:pk>/', views.ProductDetailView.as_view(), name='product_detail'), # Detalhes de um produto específico
-    path('<int:pk>/editar/', views.ProductUpdateView.as_view(), name='product_update'), # Edita um produto específico
-    path('<int:pk>/excluir/', views.ProductDeleteView.as_view(), name='product_delete'), # Deleta um produto específico
+    path('', views.ProductListView.as_view(), name='product_list'), # Lista todos os produtos.
+    path('adicionar/', views.ProductCreateView.as_view(), name='product_create'), # Cria um novo produto.
+    path('<int:pk>/', views.ProductDetailView.as_view(), name='product_detail'), # Detalhes de um produto específico.
+    path('<int:pk>/editar/', views.ProductUpdateView.as_view(), name='product_update'), # Edita um produto específico.
+    path('<int:pk>/excluir/', views.ProductDeleteView.as_view(), name='product_delete'), # Deleta um produto específico.
+    path('add/marca/', views.MarcaCreateView.as_view(), name='marca_add'), # Cadastrar uma Marca.
+    path('add/categoria/', views.CategoryCreateView.as_view(), name='category_add'), # Cadastrar Categoria
 ]
 
 """

@@ -1,6 +1,6 @@
 from django.utils.translation import gettext_lazy as _ # Importa gettext_lazy para tradução de strings
 from django import forms
-from .models import Product
+from .models import Product, Marca, Category
 
 class ProductForm(forms.ModelForm): # Formulário para criar/editar produtos
 
@@ -9,9 +9,9 @@ class ProductForm(forms.ModelForm): # Formulário para criar/editar produtos
     class Meta:# Meta classe para definir o modelo e os campos do formulário
         # Define o modelo que será utilizado pelo formulário
         model = Product
-        fields = ['name', 'description', 'category', 'sku', 'quantity', 'min_stock_level', 'cost_price', 'sale_price', 'company', 'ean', 'reference', 'unit', 'local', 'marca'] # Campos que serão exibidos no formulário
+        fields = ['description', 'category', 'sku', 'quantity', 'min_stock_level', 'cost_price', 'sale_price', 'company', 'ean', 'reference', 'unit', 'local', 'marca'] # Campos que serão exibidos no formulário
         widgets = {
-            'description': forms.Textarea(attrs={'rows': 2, 'cols': 80, 'class': 'descricao'})
+            'description': forms.Textarea(attrs={'rows': 1, 'cols': 80, 'class': 'descricao'})
         }
 
     def __init__(self, *args, **kwargs): # Inicializa o formulário
@@ -48,3 +48,16 @@ class ProductForm(forms.ModelForm): # Formulário para criar/editar produtos
             raise forms.ValidationError("A quantidade não pode ser menor que o nível mínimo de estoque.")   # Lança um erro de validação se a quantidade for menor que o nível mínimo de estoque
         return cleaned_data # Retorna os dados limpos se não houver erros
     
+
+# Formulario de Cadastro de Marca
+class MarcaForm(forms.ModelForm):
+    class Meta:
+        model = Marca
+        fields = ['nome']
+
+
+# Formulario de Cadastro de Marca
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['nome']

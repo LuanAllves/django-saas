@@ -24,7 +24,7 @@
                 <form method="post">
                     <div class="header">
                         <h2>
-                            <a href="{{return_url}}"><i class="material-icons">&#xE5C4;</i></a>{{title_complete}}
+                            <a href="{{return_url}}" class="btn_return"><i class="material-icons">&#xE5C4;</i></a>{{title_complete}}
                         </h2>
                         <div><small>Campos marcados com <strong style="color:red;">*</strong> são obrigatórios.</small></div>
                     </div>
@@ -45,6 +45,7 @@
                                         {{ form.category.label_tag }}
                                     </span>
                                     {{ form.category }}
+                                    <a href="{{add_category}}" class="btn btn-sm btn-primary ms-2"><i class="material-icons">&#xE148;</i></a>
                                 </div>
                                 
                                 <!-- Termino da Linha 1 -->
@@ -55,6 +56,7 @@
                                         {{form.marca.label_tag}}
                                     </span>
                                     {{ form.marca }}
+                                    <a href="{{add_marca}}" class="btn btn-sm btn-primary ms-2"><i class="material-icons">&#xE148;</i></a>
                                 </div>
 
                                 <div class="input-group col-md-3">
@@ -122,6 +124,8 @@
                                 <!-- Termino da Linha 4 -->
                             </div>
                         </div>
+                        {% include 'global/menssage.html' %}
+                        {{ form.company }}
                         <button class="btn btn-success foot-btn" type="submit"><i class="material-icons">&#xE148;</i><span> SALVAR</span></button>
                     </div>
                 </form>

@@ -24,6 +24,7 @@
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
+  align-content: center;
 
   text-rendering: optimizeLegibility;
   /* Support for all WebKit browsers. */
@@ -956,6 +957,10 @@ div.table-responsive > div.dataTables_wrapper > div.row > div[class^="col-"]:las
   border-bottom: 1px solid rgba(66, 58, 58, 0.35);
   overflow: hidden;
   /*border-bottom: 1px solid rgba(204, 204, 204, 0.35);*/ }
+  .card .header .btn_return {
+    float:right;
+    margin-right:10px;
+    height: 24px;}
   .card .header h2 {
     margin: 0;
     font-size: 18px;
@@ -973,13 +978,14 @@ div.table-responsive > div.dataTables_wrapper > div.row > div[class^="col-"]:las
       float:right;
       margin-right:10px; }
       
+      
       .card .header .header-btn .dropdown a{
         width: 100%;
         margin:0px; }
 
     .card .header a span{
       vertical-align: 2px; }
-      
+
 
 .card .body {
   font-size: 14px;

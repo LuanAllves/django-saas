@@ -2,9 +2,9 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy # Para redirecionar após a exclusão
 from django.shortcuts import get_object_or_404, redirect, render # Importa funções auxiliares para renderizar templates e redirecionar
 from django.contrib.auth.mixins import LoginRequiredMixin # Para exigir login
-from .models import Product # Importa o modelo Product
+from .models import Product, Marca, Category # Importa o modelo Product
 from companies.models import Company # Importa o modelo Company
-from .forms import ProductForm # Importa o formulário ProductForm 
+from .forms import ProductForm, MarcaForm, CategoryForm # Importa o formulário ProductForm 
 from django.contrib import messages # Para exibir mensagens de sucesso ou erro
 
 # ---------------------------> mixin para garantir multitenância <---------------------------
@@ -90,6 +90,8 @@ class ProductCreateView(LoginRequiredMixin, CompanyMixin, CreateView):
         context['title_complete'] = 'CADASTRADOS PRODUTOS' # Título da página
         context['content_title'] = 'PRODUTOS' # Título do conteúdo
         context['return_url'] = reverse_lazy('products:product_list', kwargs={'company_slug': self.company.slug}) # URL para retornar à lista de produtos
+        context['add_marca'] = reverse_lazy('products:marca_add', kwargs={'company_slug': self.company.slug}) # URL de cadastro de Marca
+        context['add_category'] = reverse_lazy('products:category_add', kwargs={'company_slug': self.company.slug}) # URL de cadastro de Category
         return context
 # --------------------------------------> Fim da Criação <---------------------------
 
@@ -122,7 +124,7 @@ class ProductDeleteView(LoginRequiredMixin, CompanyMixin, DeleteView):
 
     # Opcional: Adicionar mensagem de sucesso (requer django.contrib.messages)
     def form_valid(self, form):
-        messages.success(self.request, f'Produto "{self.get_object().name}" deletado com sucesso!')
+        messages.success(self.request, f'Produto "{self.get_object().description}" deletado com sucesso!')
         return super().form_valid(form)
     
     def get_context_data(self, **kwargs):
@@ -133,6 +135,55 @@ class ProductDeleteView(LoginRequiredMixin, CompanyMixin, DeleteView):
         return context
 # --------------------------------> Fim da Exclusão <---------------------------
 
+# --------------------------------> Inicio views de Marca <---------------------------
+class MarcaCreateView(LoginRequiredMixin, CompanyMixin, CreateView):
+    model = Marca
+    form_class = MarcaForm
+    template_name = 'products/marca_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('products:product_create', kwargs={'company_slug': self.company.slug})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs) # Obtém o contexto padrão
+        context['title_complete'] = 'CADASTRAR MARCA' # Título da página
+        context['content_title'] = 'MARCA' # Título do conteúdo
+        context['return_url'] = reverse_lazy('products:product_list', kwargs={'company_slug': self.company.slug })# Url para retorna à lista de produtos
+        return context
+    
+    # SOBRESCRITURA PARA EVITAR O ERRO 'company'
+    def get_form_kwargs(self):
+        # A MarcaCreateView não precisa do argumento 'company' no seu formulário interno.
+        # Retornamos apenas os kwargs padrão que a super classe espera.
+        return super(CompanyMixin, self).get_form_kwargs() 
+        # Usamos super(CompanyMixin, self) para pular o get_form_kwargs do CompanyMixin
+        # e chamar o get_form_kwargs da próxima classe na cadeia de herança 
+# --------------------------------> Fim da views Marca <---------------------------
+
+# --------------------------------> Inicio views de Categoria <---------------------------
+class CategoryCreateView(LoginRequiredMixin, CompanyMixin, CreateView):
+    model = Category
+    form_class = CategoryForm
+    template_name = 'products/category_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('products:product_create', kwargs={'company_slug': self.company.slug})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs) # Obtém o contexto padrão
+        context['title_complete'] = 'CADASTRAR CATEGORIA' # Título da página
+        context['content_title'] = 'CATEGORIA' # Título do conteúdo
+        context['return_url'] = reverse_lazy('products:product_list', kwargs={'company_slug': self.company.slug })# Url para retorna à lista de produtos
+        return context
+    
+    # SOBRESCRITURA PARA EVITAR O ERRO 'company'
+    def get_form_kwargs(self):
+        # A MarcaCreateView não precisa do argumento 'company' no seu formulário interno.
+        # Retornamos apenas os kwargs padrão que a super classe espera.
+        return super(CompanyMixin, self).get_form_kwargs() 
+        # Usamos super(CompanyMixin, self) para pular o get_form_kwargs do CompanyMixin
+        # e chamar o get_form_kwargs da próxima classe na cadeia de herança 
+# --------------------------------> Fim da views Categoria <---------------------------
 
 """
 Explicação:

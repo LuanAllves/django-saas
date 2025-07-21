@@ -13,16 +13,49 @@ UNIT_CHOICES = [
     # Adicione mais unidades conforme necessário
 ]
 
-# Create your models here.
+# Definir as opções de Categoria
+CATEGORY_CHOICES = [
+    ('Lente', 'Lente'),
+    ('Óculos', 'Óculos'),
+    ('Armação', 'Armação'),
+    ('Acessórios', 'Acessório'),
+    ('Equipamentos', 'Equipamento')
+
+]
+
+# Aqui Criamos um modelo de Marca para que os Usuários consiga cadastrar uma nova Marca caso não exista no sistema.
+class Marca(models.Model):
+    nome = models.CharField(max_length=25, unique=True)
+
+    def __str__(self):
+        return self.nome
+    
+    def save(self, *args, **kwargs):
+        self.nome = self.nome.strip().capitalize()  # ou title() se quiser capitalizar todas as palavras
+        super().save(*args, **kwargs)
+
+
+# Aqui Criamos um modelo de Categoria para que os Usuários consiga cadastrar uma nova Marca caso não exista no sistema.
+class Category(models.Model):
+    nome = models.CharField(max_length=25, unique=True)
+
+    def __str__(self):
+        return self.nome
+    
+    def save(self, *args, **kwargs):
+        self.nome = self.nome.strip().capitalize()  # ou title() se quiser capitalizar todas as palavras
+        super().save(*args, **kwargs)
+
+
+# Modelo de produto.
 class Product(models.Model):
-    name = models.CharField(verbose_name='Nome', max_length=100, help_text="Nome do produto")
     description = models.TextField(verbose_name='Descrição', blank=True, null=True, help_text="Descrição do produto")
     cost_price = models.DecimalField(verbose_name='Custo', max_digits=10, decimal_places=2, blank=True, null=True, help_text="Preço de custo do produto")
     sale_price = models.DecimalField(verbose_name='Venda', max_digits=10, decimal_places=2, blank=True, null=True, help_text="Preço de venda do produto")
     created_at = models.DateTimeField(verbose_name='Criação', auto_now_add=True, blank=True, null=True, help_text="Data de criação do produto")
     updated_at = models.DateTimeField(verbose_name='Atualização', auto_now=True, blank=True, null=True, help_text="Data de atualização do produto")
-    marca = models.CharField(verbose_name='Marca', max_length=20, blank=True, null=True, help_text="Marca do produto")
-    category = models.CharField(verbose_name='Categoria', max_length=20, blank=True, null=True, help_text="Categoria do produto")
+    marca = models.ForeignKey(Marca, blank=True, null=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.SET_NULL)
     quantity = models.PositiveIntegerField(verbose_name='Estoque', default=0, help_text="Quantidade atual em estoque")
     sku = models.CharField(verbose_name='SKU', max_length=20, unique=True, blank=True, null=True, help_text="Código SKU do produto")
     min_stock_level = models.PositiveIntegerField(verbose_name='Min. Estoque', default=0, help_text="Quantidade mínima em estoque para alertas")
@@ -45,3 +78,4 @@ class Product(models.Model):
         verbose_name = "Produto"
         verbose_name_plural = "Produtos"
         ordering = ['-created_at']
+
